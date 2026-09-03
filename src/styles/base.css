@@ -1,0 +1,116 @@
+/** 全局重置与基础排版。只放跨组件的通用规则，业务样式一律进各自的 scoped style。 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family:
+    'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', sans-serif;
+  font-size: var(--font-md);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  /* 禁止 iOS 横屏时自动放大字号 */
+  -webkit-text-size-adjust: 100%;
+}
+
+/*
+ * 滚动条。宽度用浏览器默认值，只改配色让它跟随主题。
+ * Firefox 走标准属性，Chromium/Safari 走 ::-webkit-scrollbar。
+ */
+* {
+  scrollbar-color: var(--color-scrollbar) transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-full);
+  background: var(--color-scrollbar);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-scrollbar-hover);
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/*
+ * 键盘焦点圈。只在 :focus-visible 下出现（键盘操作、Esc 关弹窗后焦点回落等），
+ * 鼠标点击不会显示，是无障碍必需的指示，不要整体删掉。
+ * 用中性正文色而非品牌紫：焦点圈是系统级提示，不该被误认成某个控件的强调态。
+ */
+:focus-visible {
+  outline: 2px solid var(--color-text-secondary);
+  outline-offset: 2px;
+}
+
+/* 主题切换的一帧内禁用全部过渡，避免各元素颜色各自补间造成的闪烁 */
+.theme-switching *,
+.theme-switching *::before,
+.theme-switching *::after {
+  transition: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 仅对读屏器可见 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

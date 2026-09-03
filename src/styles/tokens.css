@@ -1,0 +1,195 @@
+/**
+ * 设计令牌（Design Tokens）
+ * 全站唯一的视觉常量来源：组件内不允许出现硬编码色值 / 间距。
+ * 换肤、暗色模式只需覆盖此文件中的变量。
+ */
+
+:root {
+  /* ── 品牌色 ────────────────────────────── */
+  /* 品牌资产色。深紫在纯黑画布上会沉进背景，暗色主题下另给一档提亮值（见文末） */
+  --color-brand: #6d28d9;
+  --color-brand-hover: #5b21b6;
+  /* 品牌色的极淡底色：标签、占位图渐变等大面积场景用 */
+  --color-brand-soft: #f1ebfe;
+  /*
+   * 强调色曾是与品牌色区分开的行动色，现在二者同源；
+   * 这里保留别名，组件不必逐个改，语义上「主行动」仍读 accent。
+   */
+  --color-accent: var(--color-brand);
+  --color-accent-hover: var(--color-brand-hover);
+  /* 点赞等「喜欢」态 */
+  --color-like: #ff2e4d;
+  /* 收藏态：与点赞的红拉开，用星标惯用的琥珀色 */
+  --color-collect: #f5a623;
+  /*
+   * 危险动作（删除、注销）。不复用点赞红：点赞红是「喜欢」的资产色，
+   * 拿它去做删除按钮，同一个红在站内表示两件相反的事。
+   * 这一档偏正红、明度低半档，更像警示而不是心情。
+   */
+  --color-danger: #e5484d;
+  --color-danger-hover: #cc3a3f;
+
+  /* ── 中性色 ────────────────────────────── */
+  --color-bg: #ffffff;
+  --color-bg-sunken: #f7f7fa;
+  --color-bg-elevated: #ffffff;
+  --color-bg-hover: #f0f0f5;
+
+  --color-text: #1a1a1f;
+  --color-text-secondary: #6b6b76;
+  --color-text-tertiary: #9a9aa6;
+  --color-text-inverse: #ffffff;
+
+  /* 侧边栏导航：文字比正文浅一档，图标用纯黑压住视觉重心 */
+  --color-nav-text: #333333;
+  --color-nav-icon: #000000;
+
+  --color-border: #e8e8ee;
+  --color-border-strong: #d5d5df;
+
+  --color-overlay: rgb(0 0 0 / 45%);
+
+  /* 压在图片/媒体之上的半透明底，明暗主题共用 */
+  --color-scrim: rgb(0 0 0 / 28%);
+  --color-scrim-hover: rgb(0 0 0 / 45%);
+  /* 只为了压一下封面亮度的极浅一层（卡片 hover） */
+  --color-scrim-soft: rgb(0 0 0 / 10%);
+  /* 图片底部压文字用的渐变起点，要比普通 scrim 更重才盖得住亮图 */
+  --color-scrim-strong: rgb(0 0 0 / 62%);
+  --color-on-scrim: #ffffff;
+  /* 压在图上的次要元素（未选中的轮播点） */
+  --color-on-scrim-muted: rgb(255 255 255 / 45%);
+
+  /*
+   * 图片舞台的底色。固定深色，不随主题翻转：
+   * 作品比例各异，浅底会露出大片留白抢视线。
+   */
+  --color-media-bg: #111114;
+
+  /*
+   * 二维码底色。固定纯白，不随主题翻转 ——
+   * 扫码靠黑白反差，深底大多数摄像头识别不出来。
+   */
+  --color-qr-bg: #ffffff;
+
+  --color-scrollbar: #d5d5df;
+  --color-scrollbar-hover: #b8b8c6;
+
+  /* ── 间距（4px 基准） ──────────────────── */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* ── 圆角 ──────────────────────────────── */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* ── 字号 ──────────────────────────────── */
+  --font-xs: 11px;
+  --font-sm: 13px;
+  --font-md: 14px;
+  --font-lg: 16px;
+  --font-xl: 20px;
+  --font-2xl: 28px;
+
+  /* ── 阴影 ──────────────────────────────── */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 6%);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 8%);
+
+  /* ── 层级 ──────────────────────────────── */
+  --z-sticky: 100;
+  --z-drawer: 200;
+  --z-overlay: 190;
+  --z-modal: 300;
+  /*
+   * 打断式弹窗（登录）。它常常是从别的弹窗里唤起的 —— 在详情弹窗点评论、
+   * 点收藏都会弹它。同一层 z-index 时谁在 DOM 里靠后谁在上，
+   * 而 Teleport 的插入位置由组件挂载顺序决定，登录弹窗挂得早，反而会被压在下面。
+   */
+  --z-modal-top: 350;
+  /* 轻提示压在所有浮层之上：弹窗里的操作也要看得见回执 */
+  --z-toast: 400;
+
+  /* ── 动效 ──────────────────────────────── */
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --duration: 220ms;
+
+  /* ── 布局尺寸 ──────────────────────────── */
+  --sidebar-width: 208px;
+  --sidebar-width-collapsed: 64px;
+  /* 顶栏高度 = 侧边栏 logo 区高度，二者共用同一令牌以保证横向对齐 */
+  /* 内容区左右留白。Header 与各页面共用，保证搜索框左缘、头像右缘与内容对齐 */
+  --content-padding-x: 16px;
+
+  /* 顶栏右侧胶囊控件（会员中心、登录/注册、头像）统一高度，避免各写一份走偏 */
+  --control-height: 32px;
+
+  --header-height: 80px;
+  --tabbar-height: 52px;
+
+  /* iOS 刘海 / 手势条安全区 */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* H5 顶栏收窄，把高度让给内容区 */
+@media (max-width: 767px) {
+  :root {
+    --header-height: 56px;
+    --content-padding-x: 12px;
+  }
+}
+
+/*
+ * 暗色主题：纯黑画布，卡片/浮层用抬升灰拉开层次。
+ * 只保留 [data-theme] 一份定义 —— 首屏由 index.html 的内联脚本按系统偏好写入，
+ * 不再用 prefers-color-scheme 复制一遍，避免两份值走偏。
+ */
+[data-theme='dark'] {
+  /*
+   * 品牌紫在暗色下提亮两档。深紫（#6d28d9）明度只比纯黑高一点，
+   * 铺在 #000 画布上按钮几乎看不出边界，白字压上去也发闷；
+   * 提亮后按钮从背景里浮出来，白字的对比也够。
+   * hover 反过来比常态更亮 —— 暗色下「加深」等于往背景里退，读不出被按到。
+   */
+  --color-brand: #7c4ae8;
+  --color-brand-hover: #9a72f2;
+  --color-brand-soft: #241a3d;
+  --color-like: #ff4d67;
+  --color-collect: #ffb238;
+  /* 危险色在暗色下提亮一档，否则压在深底上发闷；hover 继续提亮（加深＝往背景里退） */
+  --color-danger: #ff6369;
+  --color-danger-hover: #ff8085;
+
+  --color-bg: #000000;
+  /* 凹陷面（搜索框等表单控件） */
+  --color-bg-sunken: #2c2c2d;
+  --color-bg-elevated: #16161a;
+  --color-bg-hover: #1e1e24;
+
+  --color-text: #f2f2f5;
+  --color-text-secondary: #a0a0ad;
+  --color-text-tertiary: #6e6e7a;
+
+  --color-nav-text: #d4d4dc;
+  --color-nav-icon: #ffffff;
+
+  --color-border: #26262c;
+  --color-border-strong: #3a3a42;
+
+  --color-overlay: rgb(0 0 0 / 65%);
+
+  /* 与搜索框同色，滚动条并入同一档中性灰 */
+  --color-scrollbar: #2c2c2d;
+  --color-scrollbar-hover: #3d3d3f;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 60%);
+  --shadow-md: 0 4px 16px rgb(0 0 0 / 65%);
+}
